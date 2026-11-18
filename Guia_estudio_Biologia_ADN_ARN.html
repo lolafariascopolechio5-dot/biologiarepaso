@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biología · ADN, ARN y proteínas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--papel:#FBF8F3;--cuadro:rgba(110,130,170,.14);--sup:#fff;--sup2:#FFF3F7;--tinta:#1E1A1D;--gris:#665C63;--acento:#B0164E;--sobre:#fff;--rosa:#FF5C93;--resal:#FFC7DA;--borde:#EADDE3;--ok:#1F7A4D;--okf:#E2F4EA;--mal:#B3261E;--malf:#FCE8E6;--aviso:#FFF6D6;--sombra:0 3px 14px rgba(40,10,25,.07)}
+@media (prefers-color-scheme:dark){:root{--papel:#16121A;--cuadro:rgba(255,255,255,.05);--sup:#211B24;--sup2:#2B2030;--tinta:#F3EDEF;--gris:#C3B7BE;--acento:#FF8DB6;--sobre:#16121A;--rosa:#FF7FAE;--resal:#5A2440;--borde:#3A2E3F;--ok:#7FD9A8;--okf:#173326;--mal:#FF9C8F;--malf:#3A1A17;--aviso:#332B12;--sombra:0 3px 14px rgba(0,0,0,.4)}}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:'Nunito',Arial,sans-serif;font-size:15px;line-height:1.55;color:var(--tinta);background-color:var(--papel);background-image:linear-gradient(var(--cuadro) 1px,transparent 1px),linear-gradient(90deg,var(--cuadro) 1px,transparent 1px);background-size:22px 22px;overflow-x:hidden}
+h1,h2,h3,.preg,.reto-q{font-family:'Caveat',cursive;line-height:1.15}
+h2{font-size:2rem;margin:0 0 .4rem}h3{font-size:1.5rem;margin:.2rem 0 .3rem}
+a{color:var(--acento)}
+button{font-family:inherit;font-size:.92rem;cursor:pointer}
+.btn{border:1px solid var(--borde);background:var(--sup);color:var(--tinta);border-radius:999px;padding:8px 15px;font-weight:600}
+.btn:hover{border-color:var(--acento)}
+.btn.prim{background:var(--acento);color:var(--sobre);border-color:var(--acento)}
+.btn.chico{padding:5px 11px;font-size:.82rem}
+.btn:disabled{opacity:.5;cursor:default}
+header{background:#1E1A1D;color:#FBF8F3;padding:16px 14px 0}
+header .marca{max-width:1100px;margin:0 auto}
+header h1{margin:0;font-size:2.1rem;color:#fff}
+header h1 span{background:linear-gradient(transparent 55%,#B0164E 55%);padding:0 4px}
+header p{margin:2px 0 0;color:#E6D9DF;font-size:.88rem}
+nav.tabs{max-width:1100px;margin:12px auto 0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{background:none;border:0;border-bottom:4px solid transparent;color:#E6D9DF;padding:10px 12px;white-space:nowrap;font-weight:600}
+nav.tabs button.on{color:#fff;border-bottom-color:#FF5C93}
+main{max-width:1100px;margin:0 auto;padding:18px 14px 60px}
+section.tab{display:none}section.tab.on{display:block}
+.caja{background:var(--sup);border:1px solid var(--borde);border-radius:14px;padding:16px;margin:0 0 16px;box-shadow:var(--sombra);min-width:0}
+.sub{color:var(--gris);font-size:.9rem;margin:-.2rem 0 .8rem}
+.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.uni{border:1px solid var(--borde);border-left:5px solid var(--rosa);border-radius:10px;padding:10px 12px;background:var(--sup2)}
+.uni p{margin:.2rem 0 .4rem}
+.src{font-size:.78rem;color:var(--gris);text-decoration:none;border-bottom:1px dashed var(--gris);white-space:nowrap}
+.src:hover{color:var(--acento)}
+.donde{margin-top:4px}
+.flujo{background:var(--sup2);border-radius:10px;padding:10px 12px;font-weight:600}
+ol.pasos{list-style:none;padding:0;margin:8px 0 0;counter-reset:p}
+ol.pasos li{counter-increment:p;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:9px 0;border-bottom:1px dashed var(--borde)}
+ol.pasos li::before{content:counter(p);width:30px;height:30px;border-radius:50%;background:var(--rosa);color:#1E1A1D;display:flex;align-items:center;justify-content:center;font-weight:800}
+table.t{width:100%;border-collapse:collapse;font-size:.9rem}
+table.t th{text-align:left;background:#1E1A1D;color:#fff;padding:7px 9px}
+table.t td{border-bottom:1px solid var(--borde);padding:7px 9px;vertical-align:top}
+.scroll{overflow-x:auto}
+select,input[type=search],input[type=number]{font-family:inherit;font-size:.9rem;padding:7px 9px;border-radius:8px;border:1px solid var(--borde);background:var(--sup);color:var(--tinta);max-width:100%}
+.filtros{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.filtros button{border:1px solid var(--borde);background:var(--sup);color:var(--tinta);border-radius:999px;padding:5px 12px;font-size:.82rem}
+.filtros button.on{background:var(--acento);color:var(--sobre);border-color:var(--acento)}
+.contador{font-weight:800;color:var(--acento)}
+.barra{height:8px;background:var(--borde);border-radius:99px;overflow:hidden;margin:8px 0}
+.barra div{height:100%;background:var(--rosa);width:0}
+.mazo{max-width:640px;margin:0 auto}
+.flip{perspective:1200px;cursor:pointer}
+.flip-in{position:relative;min-height:260px;transition:transform .45s;transform-style:preserve-3d}
+.flip.vuelta .flip-in{transform:rotateY(180deg)}
+.cara{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:22px;border:1px solid var(--borde);background:var(--sup);box-shadow:var(--sombra);overflow:auto}
+.cara.atras{transform:rotateY(180deg);background:var(--sup2)}
+.tema{font-size:.75rem;color:var(--gris);text-transform:uppercase;letter-spacing:1px}
+.preg{font-size:1.75rem;margin-top:10px}
+.resp{margin-top:8px;font-size:1.02rem}
+.toca{position:absolute;bottom:10px;right:14px;font-size:.75rem;color:var(--gris)}
+@media (prefers-reduced-motion:reduce){.flip-in{transition:none}}
+.hecho{color:var(--ok);font-weight:800}
+.opcion{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:1px solid var(--borde);background:var(--sup);color:var(--tinta)}
+.opcion.bien{background:var(--okf);border-color:var(--ok)}
+.opcion.malo{background:var(--malf);border-color:var(--mal)}
+.explica{margin-top:10px;padding:10px 12px;border-left:4px solid var(--rosa);background:var(--aviso);border-radius:6px}
+.reloj{font-family:ui-monospace,Consolas,monospace;font-weight:700;background:#1E1A1D;color:#FF8DB6;padding:4px 10px;border-radius:8px}
+.reto-q{font-size:1.6rem;margin:8px 0}
+textarea.editor{width:100%;min-height:150px;background:var(--sup2);color:var(--tinta);border:2px solid var(--borde);border-radius:10px;padding:12px;font-family:inherit;font-size:1rem;resize:vertical}
+.res{margin-top:10px;padding:10px 12px;border-radius:8px}
+.res.bien{background:var(--okf);color:var(--ok);border:1px solid var(--ok)}
+.res.malo{background:var(--malf);color:var(--mal);border:1px solid var(--mal)}
+.res.info{background:var(--aviso);border:1px solid var(--rosa)}
+.ej{border:1px solid var(--borde);border-radius:10px;margin:0 0 10px;background:var(--sup)}
+.ej summary{padding:10px 12px;cursor:pointer;display:flex;gap:8px;align-items:baseline}
+.ej .cuerpo{padding:0 12px 12px}
+.nivel{font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--resal);color:var(--tinta);white-space:nowrap}
+.vbarra{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.vbarra input[type=search]{flex:1 1 160px;min-width:0}
+.vbarra input[type=number]{width:90px}
+.visor{background:var(--sup);border:2px solid var(--borde);border-radius:10px;height:440px;overflow:auto;font-size:.9rem}
+.vl{display:flex;cursor:pointer;border-bottom:1px dashed var(--borde)}
+.vl:hover{background:var(--sup2)}
+.vl .n{width:40px;flex-shrink:0;text-align:right;padding:5px 8px 5px 0;color:var(--gris);user-select:none;border-right:2px solid var(--rosa)}
+.vl .c{padding:5px 10px}
+.vl.foco{background:var(--resal)}.vl.cerca{background:var(--aviso)}.vl.acierto{background:var(--okf)}.vl.erro{background:var(--malf)}
+mark{background:#FFE066;color:#000;border-radius:2px}mark.actual{background:#FF8A00}
+.puntaje{display:flex;gap:14px;flex-wrap:wrap;font-size:.88rem;color:var(--gris)}.puntaje b{color:var(--tinta)}
+@media (max-width:600px){main{padding:14px 10px 50px}.caja{padding:13px}.visor{height:360px}.flip-in{min-height:300px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="marca"><h1><span>Biología</span> · ADN, ARN y proteínas</h1><p>Hecho con tus 4 hojas de carpeta. Tocá cualquier 📓 para ver esa línea del apunte. ⚠ = corrección o dato fuera del material.</p></div>
+ <nav class="tabs" id="tabs">
+  <button data-tab="t1" class="on">1 · Mapa</button><button data-tab="t2">2 · Tarjetas</button><button data-tab="t3">3 · Cuestionario</button><button data-tab="t4">4 · Simulacro</button><button data-tab="t5">5 · Encontrá en la fuente</button>
+ </nav>
+</header>
+<main>
+<section class="tab on" id="t1">
+ <div class="caja"><h2>Las unidades</h2><div class="grid" id="unidades"></div><p class="flujo" id="relacion" style="margin-top:12px"></p></div>
+ <div class="caja"><h2>Paso a paso</h2><div class="fila"><label for="proceso"><b>Proceso:</b></label><select id="proceso"></select></div><ol class="pasos" id="pasos"></ol></div>
+ <div class="caja"><h2>Lo que te pueden preguntar</h2><p class="sub">Puntos confusos y errores del apunte, con cómo responder.</p><div class="scroll"><table class="t" id="debiles"></table></div></div>
+ <div class="caja"><h2>¿Por qué X y no Y?</h2><div class="grid" id="comp"></div></div>
+</section>
+
+<section class="tab" id="t2">
+ <div class="caja"><h2>Tarjetas</h2><p class="sub">Tocá la tarjeta para darla vuelta.</p>
+  <div class="filtros" id="filtroTar"></div>
+  <div class="fila" style="justify-content:space-between"><span>Sabés <span class="contador" id="tarSabe">0</span> de <span id="tarTotal">0</span> · <span id="tarPos"></span></span>
+  <span class="fila"><label><input type="checkbox" id="tarSoloNo"> solo las que no sé</label><button class="btn chico" id="tarMezclar">Mezclar</button><button class="btn chico" id="tarReset">Reiniciar</button></span></div>
+  <div class="barra"><div id="tarBarra"></div></div>
+  <div class="mazo"><div class="flip" id="flip" tabindex="0" role="button" aria-label="Dar vuelta la tarjeta"><div class="flip-in"><div class="cara" id="cara1"></div><div class="cara atras" id="cara2"></div></div></div>
+  <div class="fila" style="justify-content:center;margin-top:12px"><button class="btn" id="tarAnt">◀</button><button class="btn" id="tarRep">Repasar</button><button class="btn prim" id="tarSe">Lo sé ✓</button><button class="btn" id="tarSig">▶</button></div></div>
+ </div>
+</section>
+
+<section class="tab" id="t3">
+ <div class="caja"><h2>Cuestionario</h2><p class="sub">Elegí un tema (o todos) y respondé.</p>
+  <div class="filtros" id="filtroQuiz"></div>
+  <div class="fila"><button class="btn prim" id="quizEmpezar">Empezar</button><span id="quizMejor" class="sub" style="margin:0"></span></div>
+  <div id="quizZona" style="margin-top:14px"></div></div>
+</section>
+
+<section class="tab" id="t4">
+ <div class="caja"><h2>Simulacro: «el profe te pide…»</h2><p class="sub">Respondé con tus palabras. Para las secuencias, escribí las bases (con o sin espacios).</p>
+  <div class="filtros" id="filtroSim"></div>
+  <div class="fila" style="justify-content:space-between"><span>Resueltas: <span class="contador" id="simCuenta">0</span> · <span class="reloj" id="simReloj">00:00</span></span><button class="btn" id="simOtra">Otra consigna</button></div>
+  <div class="reto-q" id="simConsigna"></div><div id="simDonde" class="sub" style="margin:0 0 6px"></div>
+  <textarea class="editor" id="simEditor" placeholder="Escribí tu respuesta acá…" aria-label="Tu respuesta"></textarea>
+  <div class="fila" style="margin-top:8px"><button class="btn prim" id="simRevisar">Revisar</button><button class="btn" id="simPista" disabled>Pista (después de 2 intentos)</button><button class="btn" id="simRindo">Me rindo</button><button class="btn chico" id="simBorrar">Borrar</button></div>
+  <div id="simRes"></div></div>
+ <div class="grid">
+  <div class="caja"><h2>El método</h2><ol>
+   <li><b>¿De qué proceso habla?</b> Replicación (ADN→ADN), transcripción (ADN→ARN) o traducción (ARN→proteína).</li>
+   <li><b>¿Dónde pasa y quién participa?</b> Núcleo o ribosoma; qué enzimas o qué ARN.</li>
+   <li><b>Si hay secuencias:</b> marcá los extremos 5' y 3', aplicá las parejas base por base (A-T o A-U, G-C) y separá en tripletes.</li>
+   <li><b>Controlá:</b> ¿usé U en el ARN? ¿Conté bien las bases? ¿Hay codón stop?</li>
+   <li><b>Respondé con palabras del apunte</b> y, si te lo piden, decí de dónde sale.</li></ol></div>
+  <div class="caja"><h2>Errores típicos</h2><ul>
+   <li>Poner T en el ARN o en un anticodón: el ARN usa U.</li>
+   <li>Confundir codón (ARNm) con anticodón (ARNt).</li>
+   <li>Decir que la ADNpol construye 3'→5': siempre construye 5'→3'.</li>
+   <li>Mezclar transcripción (núcleo) con traducción (ribosoma).</li>
+   <li>Contar el codón stop como aminoácido.</li>
+   <li>Decir que la ligasa une la hebra vieja con la nueva: sella los fragmentos de Okazaki.</li>
+   <li>Olvidar que G-C tiene 3 puentes y A-T, 2.</li>
+   <li>Escribir «Okasaki»: es Okazaki.</li></ul></div>
+ </div>
+ <div class="caja"><h2>Ejercicios</h2><p class="sub">Practicados: <span class="contador" id="ejHechos">0</span> de <span id="ejTotal">0</span></p><div class="filtros" id="filtroEj"></div><div id="listaEj"></div></div>
+</section>
+
+<section class="tab" id="t5">
+ <div class="caja"><h2>Retos: ¿dónde dice que…?</h2>
+  <div class="puntaje" id="retoPunt"></div>
+  <div class="fila" style="justify-content:space-between;margin-top:8px"><span class="reloj" id="retoReloj">00:00</span><span class="fila"><button class="btn chico" id="retoPista">Pista</button><button class="btn chico" id="retoMostrar">Mostrame dónde</button><button class="btn chico prim" id="retoOtro">Otro reto</button></span></div>
+  <div class="reto-q" id="retoQ"></div><div id="retoMsg"></div></div>
+ <div class="caja"><h2>Tu apunte</h2><p class="sub">Las 4 hojas pasadas a texto, con número de línea. Los dibujos van descritos entre [ ].</p>
+  <div class="vbarra"><select id="vArch" aria-label="Hoja"></select><input type="search" id="vBuscar" placeholder="Buscar (sin importar tildes)" aria-label="Buscar"><span id="vCuenta" class="sub" style="margin:0;min-width:60px"></span><button class="btn chico" id="vAnt" aria-label="Anterior">▲</button><button class="btn chico" id="vSig" aria-label="Siguiente">▼</button><input type="number" id="vLinea" min="1" placeholder="Línea" aria-label="Ir a línea"><button class="btn chico" id="vIr">Ir</button></div>
+  <div class="visor" id="visor"></div></div>
+</section>
+</main>
+
+<script>
+// ======================= MATERIAL (tus 4 hojas) =======================
+const H={
+H1:{t:"Hoja 1 · Nucleótido y replicación",l:[
+"NUCLEÓTIDO → monómero del ADN",
+"[dibujo] grupo fosfato — azúcar (pentágono) — base nitrogenada",
+"[dibujo] dos hebras: cada nucleótido se une al siguiente por el fosfato (P) y el carbono (C) del azúcar; extremos 5' y 3'",
+"[dibujo] entre las bases de una hebra y la otra: puentes de hidrógeno",
+"Doble hélice de ADN – Watson y Crick",
+"[dibujo] doble hélice con un ZOOM que muestra los nucleótidos",
+"APAREAMIENTO DE BASES COMPLEMENTARIAS",
+"PURINAS (grandes)  ↔  PIRIMIDINAS (chicas)",
+"- Adenina  ↔  - Timina",
+"- Guanina  ↔  - Citosina",
+"5' 3' / 3' 5'  } polaridad de las hebras",
+"G-C → tres puentes de hidrógeno",
+"A-T → dos puentes de hidrógeno",
+"REPLICACIÓN DEL ADN → fases",
+"1- Una enzima llamada HELICASA desenrolla la doble hélice y rompe los puentes de hidrógeno entre las bases.",
+"HORQUILLA DE REPLICACIÓN: es la zona donde las dos hebras del ADN se están separando y se está produciendo una copia.",
+"2- Proteínas SSB → mantienen separadas las hebras",
+"- se unen a las hebras separadas y las mantienen estabilizadas.",
+"3- ADN Polimerasa → fabrica las nuevas hebras (enzima)",
+"cada hebra original funciona como molde. Lee de 5' a 3' y escribe de 3' a 5'",
+"- La ADNpol agrega nucleótidos complementarios:",
+"lee la hebra molde de 3'→5' y construye la nueva hebra 5'→3', por eso se forman 2 hebras:",
+"hebra molde líder → hebra nueva continua",
+"hebra molde rezagada → hebra nueva rezagada.",
+"- Como las moléculas obtenidas tienen 1 hebra vieja y 1 nueva se dice que el proceso de replicación es SEMICONSERVATIVO.",
+"- La hebra de 3' 5' la ADNpol la copia hacia la derecha y la de 5' 3' en fragmentos llamados FRAGMENTOS DE OKASAKI",
+"- La ADNpol en la hebra rezagada lee de 5' a 3' y escribe de 3' a 5', pero lo hace en sentido opuesto al sentido de apertura de la hélice"]},
+H2:{t:"Hoja 2 · Fin de la replicación y ARN",l:[
+"- Luego de que la ADNpol construya la hebra nueva, la EXONUCLEASA vuelve a chequear y corrige errores.",
+"Por último, la enzima LIGASA une los puentes de hidrógeno de la hebra nueva y la hebra vieja.",
+"[esquema de la horquilla] a la izquierda la doble hélice (5' y 3'); en la horquilla de replicación las hebras se separan",
+"[esquema] SSB (circulitos) pegadas a las hebras separadas",
+"[esquema] hebra molde líder: A A T T T C G C G → hebra nueva: T T A A A G C G C",
+"[esquema] hebra molde rezagada: la ADNpol arma fragmentos de OKASAKI (T T A A A G C G C)",
+"ARN → ácido ribonucleico",
+"- Es un ácido nucleico que participa en la expresión de la información genética.",
+"- Está formado por nucleótidos",
+"DIFERENCIAS ENTRE ADN y ARN",
+"ADN · tiene desoxirribosa  |  ARN · tiene ribosa",
+"ADN · bases: A, T, C, G  |  ARN · bases: A, U, C, G",
+"ADN · tiene doble cadena  |  ARN · tiene solo una cadena",
+"ADN · no puede salir del núcleo  |  ARN · puede salir del núcleo",
+"TIPOS DE ARN",
+"→ ARNm (mensajero): lleva la info necesaria para fabricar una proteína  [dibujo: hebra 5' ~ 3']",
+"→ ARNt (transferencia): participa llevando aminoácidos  [dibujo: forma de trébol]",
+"→ ARNr (ribosomal): forma parte de los ribosomas  [dibujo: ribosoma]",
+"(la forma que toma el ARN en el espacio está relacionada con su función)"]},
+H3:{t:"Hoja 3 · Dogma central, transcripción y traducción",l:[
+"DOGMA CENTRAL: explica cómo se transmite y se utiliza la información genética dentro de una célula.",
+"La información está almacenada en el ADN, pero para poder utilizarla primero se copia en una molécula de ARN mediante un proceso llamado transcripción.",
+"Luego, el ARN lleva esa información hasta los ribosomas, donde se utiliza para fabricar una proteína mediante el proceso de traducción.",
+"ADN → ARN → PROTEÍNA:  ADN → ARN = transcripción  ·  ARN → proteína = traducción",
+"TRANSCRIPCIÓN → (ADN → ARN)",
+"- Ocurre en el núcleo cuando la información de una parte del ADN se copia en una molécula de ARN",
+"- La helicasa abre las hebras de ADN para que la ARNpol lea y arme la hebra complementaria",
+"- Se forma una molécula de ARNm complementaria a la hebra molde.",
+"Forma de control celular",
+"- El ARNm sufre modificaciones antes de salir del núcleo para que las enzimas del citoplasma no lo ataquen",
+"CAP {5' ~~~~~ 3'} cola de Poli-A",
+"TRADUCCIÓN → (ARN → proteína)",
+"- La información que está en el ARNm se utiliza para fabricar una proteína",
+"- Ocurre en el ribosoma del retículo endoplasmático R del citoplasma.",
+"1- ARNm → lleva la información",
+"El ARNm viene del núcleo después de haberse formado a partir del ADN. Su función es llevar hasta el ribosoma la información necesaria para fabricar una proteína.",
+"El ribosoma lee el ARNm de 3 bases por vez (tripletes). Cada grupo de 3 bases es un CODÓN",
+"2- ARNt → trae los aminoácidos",
+"El ARNt participa mientras el ribosoma lee el ARNm.",
+"Cada ARNt lleva un aminoácido y tiene una secuencia de 3 bases llamada ANTICODÓN.",
+"El anticodón se une de manera complementaria con el codón del ARNm. Así, el ARNt coloca el aminoácido correspondiente",
+"Ej: ARNm: AUG  →  ARNt: UAC"]},
+H4:{t:"Hoja 4 · ARNr, código genético y mutación",l:[
+"3- ARNr → estructura del ribosoma",
+"- Forma parte de la «máquina» que permite leer el ARNm y unir los aa.",
+"CÓDIGO GENÉTICO",
+"- El ADN y el ARN están formados por nucleótidos pero la proteína está formada por aminoácidos, por eso se necesita cambiar el «idioma» para poder realizar la traducción.",
+"- El código genético nos dice qué aminoácido corresponde a cada codón.",
+"¿Por qué los codones son tripletes?",
+"- Existen 20 aa diferentes y el ARN tiene solo 4 bases.",
+"Si usáramos 1 base por aminoácido → 4 combinaciones (4x1=4) ✗",
+"Si usáramos 2 bases por aminoácido → 16 combinaciones (4x4=16) ✗",
+"Si usáramos 3 bases por aminoácido → 64 combinaciones (4x4x4=64) ✓",
+"De los 64:",
+"• 61 codones corresponden a aa",
+"• 3 codones indican que la traducción debe terminar",
+"AUG → aa · UUU → aa · GGC → aa · UAA → stop  } esta cadena de aa es un polipéptido que forma la proteína.",
+"Péptido: cadena de aa unidos por enlaces peptídicos",
+"- El ribosoma une los aa y forma una cadena polipeptídica.",
+"MUTACIÓN: cambio en la secuencia de nucleótidos que puede modificar la información genética",
+"Ejemplo: receta",
+"- Si la mutación hubiese sido en el ADN lo que está mal es la receta.",
+"- Si la mutación hubiese sido en el ARN, leí mal la receta.",
+"(Si ocurre en el ADN cambia la información genética)"]}
+};
+const GUIA={H1:"Nucleótidos, bases, puentes de hidrógeno o cómo se copia el ADN (helicasa, SSB, ADNpol) → Hoja 1.",H2:"Exonucleasa, ligasa, el esquema de la horquilla, qué es el ARN, diferencias con el ADN y tipos de ARN → Hoja 2.",H3:"Dogma central, transcripción, CAP, poli-A, traducción, codón y anticodón → Hoja 3.",H4:"ARNr, código genético, tripletes, 64 codones, péptidos o mutación → Hoja 4."};
+
+// ======================= PESTAÑA 1 =======================
+const M={
+unidades:[["1 · El ADN","Nucleótido, doble hélice, bases complementarias y polaridad.","H1·1-13"],["2 · Replicación","El ADN se copia: helicasa, SSB, ADNpol, exonucleasa y ligasa.","H1·14-27 · H2·1-6"],["3 · El ARN","Qué es, diferencias con el ADN y los 3 tipos.","H2·7-19"],["4 · Dogma central","ADN → ARN → proteína.","H3·1-4"],["5 · Transcripción","ADN → ARNm en el núcleo; CAP y cola de poli-A.","H3·5-11"],["6 · Traducción","ARNm → proteína en el ribosoma: codón, anticodón, ARNt y ARNr.","H3·12-22 · H4·1-2"],["7 · Código genético","Tripletes, 64 codones (61 aa + 3 stop), péptidos.","H4·3-16"],["8 · Mutación","Cambio en la secuencia: el ejemplo de la receta.","H4·17-21"]],
+relacion:"El ADN guarda la información (1) → se copia con la replicación (2) → una parte se copia en ARN (3-5: transcripción) → el ribosoma la lee con el código genético (6-7: traducción) → proteína. Si cambia la secuencia de nucleótidos (8: mutación), puede cambiar la información.",
+procesos:[
+{n:"Replicación del ADN",pasos:[["La helicasa desenrolla la doble hélice y rompe los puentes de hidrógeno: se forma la horquilla de replicación.","H1·15-16"],["Las proteínas SSB se pegan a las hebras separadas y las mantienen estabilizadas.","H1·17-18"],["La ADN polimerasa lee la hebra molde 3'→5' y construye la nueva 5'→3' con nucleótidos complementarios.","H1·19-22"],["Con la molde líder la copia es continua; con la rezagada va en fragmentos de Okazaki, porque trabaja al revés de la apertura.","H1·23-27"],["La exonucleasa vuelve a chequear y corrige errores.","H2·1"],["La ligasa actúa por último. ⚠ El apunte dice que une puentes de hidrógeno; en realidad sella los fragmentos de Okazaki.","H2·2"],["Resultado: 2 moléculas, cada una con 1 hebra vieja y 1 nueva (semiconservativa).","H1·25"]]},
+{n:"Transcripción",pasos:[["En el núcleo se abren las hebras de una parte del ADN.","H3·6-7"],["La ARN polimerasa lee la hebra molde y arma el ARNm complementario (con U en lugar de T).","H3·7-8 · H2·12"],["El ARNm recibe el CAP (5') y la cola de poli-A (3') para que las enzimas del citoplasma no lo ataquen.","H3·9-11"],["El ARNm sale del núcleo hacia el ribosoma.","H3·16 · H2·14"]]},
+{n:"Traducción",pasos:[["El ARNm llega al ribosoma (el ARNr es parte de esa «máquina»).","H3·14-16 · H4·1-2"],["El ribosoma lee de a 3 bases: cada triplete es un codón.","H3·17"],["Un ARNt con el anticodón complementario trae su aminoácido (AUG ↔ UAC).","H3·18-22"],["El ribosoma une los aminoácidos con enlaces peptídicos: cadena polipeptídica.","H4·15-16"],["Al llegar a un codón stop (por ejemplo UAA) termina.","H4·13-14"]]},
+{n:"Ejemplo completo: del ADN a la proteína",pasos:[["Hebra molde de ADN: 3'-TAC AAA CCG ATT-5'","H1·9-10"],["Transcripción: ARNm 5'-AUG UUU GGC UAA-3' (A→U, T→A, C→G, G→C).","H3·8 · H2·12"],["Codones: AUG · UUU · GGC · UAA (los mismos del apunte).","H4·14"],["Anticodones de los ARNt: UAC · AAA · CCG.","H3·20-22"],["UAA es stop: termina. Sale una cadena de 3 aminoácidos (polipéptido).","H4·13-14"]]}],
+debiles:[
+["Hoja 1 · líneas 20 y 27: «lee de 5' a 3' y escribe de 3' a 5'». Contradice la línea 22.","Regla correcta: la ADNpol siempre lee el molde 3'→5' y construye la hebra nueva 5'→3' (como dice la línea 22)."],
+["Hoja 2 · línea 2: «la ligasa une los puentes de hidrógeno de la hebra nueva y la vieja».","⚠ Fuera del material: la ligasa sella los fragmentos de Okazaki de la hebra nueva (enlaces fosfodiéster). Los puentes de hidrógeno se forman solos al aparearse las bases."],
+["«Okasaki» (hojas 1 y 2).","Se escribe Okazaki, por el científico que los descubrió (fuera del material)."],
+["Hoja 2 · línea 1: la exonucleasa corrige errores.","Dato extra (fuera del material): en muchos libros esa corrección la hace la propia ADN polimerasa, con su «actividad exonucleasa». Podés decirlo así."],
+["Hoja 3 · línea 7: la helicasa abre el ADN en la transcripción.","Si el profe sigue el apunte, decilo así. ⚠ Dato extra: en general la que abre el ADN en la transcripción es la propia ARN polimerasa."],
+["Hoja 3 · línea 14: traducción «en el ribosoma del retículo endoplasmático R del citoplasma».","Dato extra: hay ribosomas libres en el citoplasma y otros pegados al retículo endoplasmático rugoso (RER). En los dos hay traducción."],
+["¿Por qué A va con T y G con C?","Una purina (grande) siempre con una pirimidina (chica), y cada par tiene su cantidad de puentes: A-T 2, G-C 3 (H1·8-13)."],
+["¿Por qué el ARN sale del núcleo y el ADN no?","El apunte solo lo afirma (H2·14). Respondé: el ARNm tiene que llevar la información hasta el ribosoma, que está fuera del núcleo (H3·16)."],
+["¿Qué hace el codón AUG?","El apunte solo dice «→ aa» (H4·14). Dato extra: codifica metionina y es el codón de inicio."],
+["Codón y anticodón se confunden.","Codón = 3 bases del ARNm (H3·17). Anticodón = 3 bases del ARNt (H3·20). El anticodón nunca lleva T."]],
+comp:[["Replicación vs transcripción","Replicación: ADN → ADN con la ADN polimerasa; salen 2 moléculas de doble cadena. Transcripción: una parte del ADN → ARNm de una cadena, con la ARN polimerasa, en el núcleo.","H1·14-25 · H3·5-8"],["Transcripción vs traducción","Transcripción: ADN → ARN, en el núcleo. Traducción: ARN → proteína, en el ribosoma.","H3·4-14"],["Codón vs anticodón","Codón: 3 bases del ARNm que lee el ribosoma. Anticodón: 3 bases del ARNt, complementarias. AUG ↔ UAC.","H3·17-22"],["ARNm vs ARNt vs ARNr","m = mensaje (la receta) · t = transporta aminoácidos · r = forma el ribosoma (la máquina).","H2·16-18 · H4·1-2"],["Hebra líder vs rezagada","Líder: la nueva sale continua. Rezagada: en fragmentos de Okazaki, porque la ADNpol va al revés de la apertura.","H1·23-27"],["Mutación en ADN vs en ARN","ADN: la receta está mal (cambia la información genética). ARN: la receta está bien, pero se leyó mal.","H4·19-21"]]
+};
+
+// ======================= TARJETAS [tema, pregunta, respuesta, fuente] =======================
+const T=[
+["ADN","¿Qué es el nucleótido?","El monómero (la unidad que se repite) del ADN.","H1·1"],
+["ADN","¿Qué 3 partes tiene un nucleótido?","Grupo fosfato, azúcar (pentágono en el dibujo) y base nitrogenada.","H1·2"],
+["ADN","¿Quiénes propusieron la doble hélice?","Watson y Crick.","H1·5"],
+["ADN","¿Qué une las bases de una hebra con las de la otra?","Puentes de hidrógeno.","H1·4"],
+["ADN","¿Cuáles son las purinas?","Adenina y guanina (las bases grandes).","H1·8-10"],
+["ADN","¿Cuáles son las pirimidinas del ADN?","Timina y citosina (las bases chicas).","H1·8-10"],
+["ADN","¿Con quién se aparea la adenina en el ADN?","Con la timina.","H1·9"],
+["ADN","¿Con quién se aparea la guanina?","Con la citosina.","H1·10"],
+["ADN","¿Cuántos puentes de hidrógeno tiene G-C?","Tres.","H1·12"],
+["ADN","¿Cuántos puentes de hidrógeno tiene A-T?","Dos.","H1·13"],
+["ADN","¿Qué es la polaridad de las hebras?","Cada hebra tiene un extremo 5' y uno 3', y van en sentidos opuestos: una 5'→3' y la otra 3'→5'. (Se llaman «antiparalelas»: término fuera del material.)","H1·11"],
+["ADN","¿Por qué siempre se aparea una purina con una pirimidina?","Una grande con una chica. ⚠ Explicación fuera del material: así el ancho de la doble hélice queda parejo.","H1·8"],
+["ADN","¿Qué une los nucleótidos de una misma hebra?","El fosfato de uno se une al carbono (C) del azúcar del siguiente, como en el dibujo. (Nombre técnico, fuera del material: enlace fosfodiéster.)","H1·3"],
+["ADN","¿Qué azúcar tiene el ADN?","Desoxirribosa.","H2·11"],
+["ADN","¿Qué bases tiene el ADN?","A, T, C y G.","H2·12"],
+["ADN","¿Cuántas cadenas tiene el ADN?","Dos (doble cadena).","H2·13"],
+["ADN","¿El ADN puede salir del núcleo?","No (según el apunte).","H2·14"],
+["Replicación","¿Qué es la replicación del ADN?","El proceso por el que el ADN se copia: cada hebra original funciona como molde.","H1·14 · H1·20"],
+["Replicación","Fase 1: ¿qué hace la helicasa?","Desenrolla la doble hélice y rompe los puentes de hidrógeno entre las bases.","H1·15"],
+["Replicación","¿Qué es la horquilla de replicación?","La zona donde las dos hebras se están separando y se está produciendo la copia.","H1·16"],
+["Replicación","Fase 2: ¿qué hacen las proteínas SSB?","Se unen a las hebras separadas y las mantienen separadas y estabilizadas.","H1·17-18"],
+["Replicación","Fase 3: ¿qué hace la ADN polimerasa?","Fabrica las hebras nuevas agregando nucleótidos complementarios.","H1·19 · H1·21"],
+["Replicación","¿Qué tipo de molécula es la ADN polimerasa?","Una enzima.","H1·19"],
+["Replicación","¿En qué sentido lee y en qué sentido construye la ADNpol?","Lee el molde 3'→5' y construye la hebra nueva 5'→3'. ⚠ Las líneas 20 y 27 lo dicen al revés: error del apunte.","H1·22"],
+["Replicación","¿Qué hebra nueva sale de la hebra molde líder?","La hebra nueva continua.","H1·23"],
+["Replicación","¿Qué hebra nueva sale de la hebra molde rezagada?","La hebra nueva rezagada, hecha en fragmentos.","H1·24"],
+["Replicación","¿Qué son los fragmentos de Okazaki?","Los pedazos en que se copia la hebra rezagada. (En el apunte dice «Okasaki»; se escribe Okazaki.)","H1·26"],
+["Replicación","¿Por qué la rezagada se copia en fragmentos?","Porque la ADNpol trabaja en sentido opuesto al sentido de apertura de la hélice.","H1·27"],
+["Replicación","¿Por qué la replicación es semiconservativa?","Porque cada molécula que se obtiene tiene 1 hebra vieja y 1 nueva.","H1·25"],
+["Replicación","¿Qué hace la exonucleasa?","Después de la ADNpol, vuelve a chequear y corrige errores.","H2·1"],
+["Replicación","¿Qué hace la ligasa?","El apunte dice que «une los puentes de hidrógeno de la hebra nueva y la vieja». ⚠ Corrección: une (sella) los fragmentos de Okazaki de la hebra nueva.","H2·2"],
+["Replicación","¿Cuál es la última enzima que actúa?","La ligasa.","H2·2"],
+["Replicación","¿En qué orden actúan las enzimas?","Helicasa → SSB → ADN polimerasa → exonucleasa → ligasa.","H1·15-19 · H2·1-2"],
+["Replicación","En el esquema, el molde es AATTTCGCG. ¿Cuál es la hebra nueva?","TTAAAGCGC.","H2·5"],
+["Replicación","¿Cuántas moléculas de ADN hay al terminar?","Dos, cada una con 1 hebra vieja y 1 nueva.","H1·25"],
+["ARN","¿Qué significa ARN?","Ácido ribonucleico.","H2·7"],
+["ARN","¿Qué función general tiene el ARN?","Participa en la expresión de la información genética.","H2·8"],
+["ARN","¿De qué está formado el ARN?","De nucleótidos.","H2·9"],
+["ARN","¿Qué azúcar tiene el ARN?","Ribosa.","H2·11"],
+["ARN","¿Qué bases tiene el ARN?","A, U, C y G.","H2·12"],
+["ARN","¿Qué base del ADN no está en el ARN y cuál la reemplaza?","La timina (T); en su lugar está el uracilo (U).","H2·12"],
+["ARN","¿Cuántas cadenas tiene el ARN?","Una sola.","H2·13"],
+["ARN","¿El ARN puede salir del núcleo?","Sí.","H2·14"],
+["ARN","¿Cuáles son los 3 tipos de ARN?","ARNm (mensajero), ARNt (transferencia) y ARNr (ribosomal).","H2·15-18"],
+["ARN","¿Qué hace el ARNm?","Lleva la información necesaria para fabricar una proteína.","H2·16"],
+["ARN","¿Qué hace el ARNt?","Participa llevando aminoácidos.","H2·17"],
+["ARN","¿Qué hace el ARNr?","Forma parte de los ribosomas.","H2·18"],
+["ARN","¿Qué forma tiene el ARNt en el dibujo?","De trébol.","H2·17"],
+["ARN","¿Qué relación hay entre la forma del ARN y su función?","La forma que toma en el espacio está relacionada con su función.","H2·19"],
+["ARN","¿Con qué base se aparea la A en el ARN?","Con el U (uracilo). Ej: AUG ↔ UAC.","H2·12 · H3·22"],
+["Transcripción","¿Qué explica el dogma central?","Cómo se transmite y se utiliza la información genética dentro de una célula.","H3·1"],
+["Transcripción","¿Cuál es el esquema del dogma central?","ADN → ARN → proteína.","H3·4"],
+["Transcripción","¿Qué es la transcripción?","ADN → ARN: la información de una parte del ADN se copia en una molécula de ARN.","H3·5-6"],
+["Transcripción","¿Dónde ocurre la transcripción?","En el núcleo.","H3·6"],
+["Transcripción","¿Qué enzima arma el ARN?","La ARN polimerasa (ARNpol). Según el apunte, antes la helicasa abre las hebras.","H3·7"],
+["Transcripción","¿Qué molécula se forma en la transcripción?","Un ARNm complementario a la hebra molde.","H3·8"],
+["Transcripción","¿Por qué el ARNm se modifica antes de salir del núcleo?","Para que las enzimas del citoplasma no lo ataquen.","H3·10"],
+["Transcripción","¿Qué modificaciones recibe el ARNm?","El CAP y la cola de poli-A.","H3·11"],
+["Transcripción","¿Dónde va el CAP y dónde la cola de poli-A?","El CAP en el extremo 5' y la cola de poli-A en el 3'.","H3·11"],
+["Transcripción","¿Qué es la «forma de control celular» del apunte?","Las modificaciones del ARNm antes de salir del núcleo (CAP y cola de poli-A).","H3·9-11"],
+["Traducción","¿Qué es la traducción?","ARN → proteína: la información del ARNm se usa para fabricar una proteína.","H3·12-13"],
+["Traducción","¿Dónde ocurre la traducción?","En el ribosoma (el apunte dice «del retículo endoplasmático R del citoplasma»). ⚠ Dato extra: también en ribosomas libres del citoplasma.","H3·14"],
+["Traducción","¿De dónde viene el ARNm que llega al ribosoma?","Del núcleo, después de formarse a partir del ADN.","H3·16"],
+["Traducción","¿Cuántas bases lee el ribosoma por vez?","3 (tripletes).","H3·17"],
+["Traducción","¿Qué es un codón?","Cada grupo de 3 bases del ARNm.","H3·17"],
+["Traducción","¿Qué es un anticodón?","La secuencia de 3 bases del ARNt.","H3·20"],
+["Traducción","¿Cómo se une el anticodón con el codón?","De manera complementaria. Así el ARNt coloca el aminoácido que corresponde.","H3·21"],
+["Traducción","Si el codón es AUG, ¿cuál es el anticodón?","UAC.","H3·22"],
+["Traducción","¿Qué lleva cada ARNt?","Un aminoácido y un anticodón.","H3·20"],
+["Traducción","¿Qué es el ARNr según la hoja 4?","La estructura del ribosoma: parte de la «máquina» que lee el ARNm y une los aminoácidos.","H4·1-2"],
+["Traducción","¿Quién une los aminoácidos?","El ribosoma, que forma una cadena polipeptídica.","H4·16"],
+["Código genético","¿Para qué hace falta el código genético?","Para cambiar el «idioma»: el ADN y el ARN son nucleótidos y la proteína es aminoácidos.","H4·4"],
+["Código genético","¿Qué nos dice el código genético?","Qué aminoácido corresponde a cada codón.","H4·5"],
+["Código genético","¿Cuántos aminoácidos distintos hay?","20.","H4·7"],
+["Código genético","¿Por qué no alcanza con 2 bases por aminoácido?","Porque 4 × 4 = 16 combinaciones, y hay 20 aminoácidos.","H4·9"],
+["Código genético","¿Cuántas combinaciones dan los tripletes?","64 (4 × 4 × 4).","H4·10"],
+["Código genético","De los 64 codones, ¿cuántos dan aminoácidos?","61.","H4·12"],
+["Código genético","¿Cuántos codones son de stop y qué hacen?","3; indican que la traducción tiene que terminar.","H4·13"],
+["Código genético","¿Qué codón de stop aparece en el apunte?","UAA.","H4·14"],
+["Código genético","¿Qué es un péptido?","Una cadena de aminoácidos unidos por enlaces peptídicos.","H4·15"],
+["Código genético","¿Qué es un polipéptido?","La cadena de aminoácidos que forma la proteína.","H4·14"],
+["Mutación","¿Qué es una mutación?","Un cambio en la secuencia de nucleótidos que puede modificar la información genética.","H4·17"],
+["Mutación","Ejemplo de la receta: ¿qué pasa si la mutación es en el ADN?","Lo que está mal es la receta.","H4·19"],
+["Mutación","Ejemplo de la receta: ¿qué pasa si la mutación es en el ARN?","Leí mal la receta.","H4·20"],
+["Mutación","¿Qué mutación cambia la información genética?","La que ocurre en el ADN.","H4·21"]
+];
+
+// ======================= CUESTIONARIO [tema, pregunta, [correcta, x, y, z], explicación, fuente] =======================
+const Q=[
+["ADN","¿Cuál es el monómero del ADN?",["El nucleótido","El aminoácido","El codón","El ribosoma"],"Nucleótido → monómero del ADN.","H1·1"],
+["ADN","¿Qué tres partes tiene un nucleótido?",["Fosfato, azúcar y base nitrogenada","Fosfato, aminoácido y base","Azúcar, ribosoma y base","Solo bases nitrogenadas"],"Es el primer dibujo de la hoja 1.","H1·2"],
+["ADN","¿Quiénes describieron la doble hélice?",["Watson y Crick","Okazaki","Mendel","Darwin"],"Doble hélice de ADN – Watson y Crick.","H1·5"],
+["ADN","En el ADN, la adenina se aparea con…",["Timina","Guanina","Citosina","Uracilo"],"A ↔ T. El uracilo es del ARN.","H1·9"],
+["ADN","La guanina se aparea con…",["Citosina","Adenina","Timina","Uracilo"],"G ↔ C.","H1·10"],
+["ADN","¿Cuáles son las purinas (grandes)?",["Adenina y guanina","Timina y citosina","Adenina y timina","Citosina y uracilo"],"Purinas: A y G.","H1·8-10"],
+["ADN","¿Cuáles son las pirimidinas (chicas) del ADN?",["Timina y citosina","Adenina y guanina","Adenina y citosina","Guanina y timina"],"Pirimidinas: T y C.","H1·8-10"],
+["ADN","¿Cuántos puentes de hidrógeno hay entre G y C?",["3","2","1","4"],"G-C → tres puentes.","H1·12"],
+["ADN","¿Cuántos puentes de hidrógeno hay entre A y T?",["2","3","1","4"],"A-T → dos puentes.","H1·13"],
+["ADN","¿Qué une las bases de las dos hebras?",["Puentes de hidrógeno","Enlaces peptídicos","Ribosomas","Proteínas SSB"],"Está en el dibujo de la hoja 1.","H1·4"],
+["ADN","Si una hebra va 5'→3', la otra va…",["3'→5'","5'→3'","No tiene sentido","Depende de la base"],"Polaridad de las hebras.","H1·11"],
+["ADN","¿Qué par está más unido?",["G-C, porque tiene 3 puentes","A-T, porque tiene 2 puentes","A-U","Todos igual"],"Razonamiento: más puentes de hidrógeno = más unión.","H1·12-13"],
+["Replicación","¿Qué enzima desenrolla la doble hélice y rompe los puentes de hidrógeno?",["Helicasa","Ligasa","ADN polimerasa","Exonucleasa"],"Fase 1 de la replicación.","H1·15"],
+["Replicación","¿Cómo se llama la zona donde las hebras se separan y se copian?",["Horquilla de replicación","Codón","CAP","Fragmento de Okazaki"],"Definición de horquilla de replicación.","H1·16"],
+["Replicación","¿Qué mantiene separadas y estabilizadas las hebras?",["Las proteínas SSB","El ARNt","La ligasa","La cola de poli-A"],"Fase 2.","H1·17-18"],
+["Replicación","¿Quién fabrica las hebras nuevas?",["La ADN polimerasa","La helicasa","El ARNr","Las SSB"],"Fase 3.","H1·19"],
+["Replicación","¿Cómo trabaja la ADNpol?",["Lee el molde 3'→5' y construye la nueva 5'→3'","Lee 5'→3' y construye 3'→5'","Lee y construye 5'→3'","No tiene sentido de lectura"],"Lo dice la línea 22. ⚠ La línea 20 dice lo contrario: es un error del apunte.","H1·22"],
+["Replicación","La hebra molde líder da una hebra nueva…",["Continua","En fragmentos","De ARN","Que no se copia"],"Hebra molde líder → hebra nueva continua.","H1·23"],
+["Replicación","¿En qué hebra aparecen los fragmentos de Okazaki?",["En la rezagada","En la líder","En el ARNm","En el ribosoma"],"La rezagada se copia en fragmentos.","H1·26"],
+["Replicación","¿Por qué la replicación es semiconservativa?",["Cada molécula tiene 1 hebra vieja y 1 nueva","Las dos hebras son nuevas","Las dos hebras son viejas","Porque se conserva la proteína"],"1 vieja + 1 nueva.","H1·25"],
+["Replicación","¿Qué enzima vuelve a chequear y corrige errores?",["Exonucleasa","Helicasa","SSB","ARNt"],"Actúa después de la ADNpol.","H2·1"],
+["Replicación","Según el apunte, ¿qué enzima actúa por último?",["Ligasa","Helicasa","ADN polimerasa","SSB"],"«Por último, la enzima ligasa…»","H2·2"],
+["Replicación","¿Qué une en realidad la ligasa?",["Los fragmentos de Okazaki de la hebra nueva","La hebra nueva con la vieja por puentes de hidrógeno","Los aminoácidos","Los codones"],"⚠ Corrección (fuera del material): el apunte dice puentes de hidrógeno, pero la ligasa sella los fragmentos.","H2·2"],
+["Replicación","¿Cuál es el orden correcto?",["Helicasa → SSB → ADNpol → exonucleasa → ligasa","Ligasa → helicasa → SSB → ADNpol → exonucleasa","ADNpol → helicasa → ligasa → SSB → exonucleasa","SSB → ligasa → helicasa → exonucleasa → ADNpol"],"Fases 1, 2 y 3; después exonucleasa y por último ligasa.","H1·15-19 · H2·1-2"],
+["Replicación","Molde 5'-ATGC-3'. ¿Cuál es la hebra nueva?",["3'-TACG-5'","3'-UACG-5'","5'-ATGC-3'","3'-GCAT-5'"],"A-T y G-C; en el ADN no hay U.","H1·9-11"],
+["Replicación","En el esquema, el molde es AATTTCGCG. ¿Cuál es la hebra nueva?",["TTAAAGCGC","UUAAAGCGC","AATTTCGCG","GCGCTTTAA"],"Es la que está dibujada en la horquilla.","H2·5"],
+["Replicación","¿Por qué la hebra rezagada se copia en fragmentos?",["La ADNpol va en sentido opuesto a la apertura de la hélice","Porque falta la helicasa","Porque es de ARN","Porque la ligasa la corta"],"Última línea de la hoja 1.","H1·27"],
+["Replicación","¿Cuántas moléculas de ADN hay al terminar la replicación?",["2","1","4","3"],"Cada una con 1 hebra vieja y 1 nueva.","H1·25"],
+["Replicación","¿Qué es la ADN polimerasa?",["Una enzima","Un ácido nucleico","Un aminoácido","Una base"],"«ADN polimerasa → fabrica las nuevas hebras (enzima)».","H1·19"],
+["ARN","¿Qué significa ARN?",["Ácido ribonucleico","Ácido desoxirribonucleico","Aminoácido ribosomal","Ácido ribosomal nuclear"],"ARN → ácido ribonucleico.","H2·7"],
+["ARN","¿Qué azúcar tiene el ARN?",["Ribosa","Desoxirribosa","Glucosa","Fosfato"],"ADN: desoxirribosa · ARN: ribosa.","H2·11"],
+["ARN","¿Qué bases tiene el ARN?",["A, U, C, G","A, T, C, G","A, U, T, G","A, T, U, C"],"El ARN cambia la T por U.","H2·12"],
+["ARN","¿Qué base está en el ARN y no en el ADN?",["Uracilo","Timina","Adenina","Guanina"],"Bases del ARN: A, U, C, G.","H2·12"],
+["ARN","¿Cuántas cadenas tiene el ARN?",["Una","Dos","Tres","Cuatro"],"«Tiene solo una cadena».","H2·13"],
+["ARN","Según el apunte, ¿cuál puede salir del núcleo?",["El ARN","El ADN","Los dos","Ninguno"],"ADN: no puede · ARN: puede.","H2·14"],
+["ARN","¿Qué ARN lleva la información para fabricar una proteína?",["ARNm","ARNt","ARNr","Ninguno"],"ARNm (mensajero).","H2·16"],
+["ARN","¿Qué ARN lleva los aminoácidos?",["ARNt","ARNm","ARNr","ADN"],"ARNt (transferencia).","H2·17"],
+["ARN","¿Qué ARN forma parte de los ribosomas?",["ARNr","ARNm","ARNt","Ninguno"],"ARNr (ribosomal).","H2·18"],
+["ARN","¿Qué ARN se dibuja con forma de trébol?",["ARNt","ARNm","ARNr","El ADN"],"Es el dibujo al lado del ARNt.","H2·17"],
+["ARN","La forma del ARN en el espacio está relacionada con…",["Su función","Su color","El núcleo","La helicasa"],"Nota del final de la hoja 2.","H2·19"],
+["ARN","¿En qué participa el ARN?",["En la expresión de la información genética","En guardar la información para siempre","En separar las hebras del ADN","En corregir errores del ADN"],"Definición de ARN.","H2·8"],
+["ARN","¿Cuál de estas NO es una diferencia entre ADN y ARN?",["Los dos están formados por nucleótidos","Desoxirribosa vs ribosa","Timina vs uracilo","Doble cadena vs una cadena"],"Es algo que tienen en común.","H2·9-13"],
+["Transcripción","¿Cuál es el esquema del dogma central?",["ADN → ARN → proteína","Proteína → ARN → ADN","ARN → ADN → proteína","ADN → proteína → ARN"],"Dogma central.","H3·4"],
+["Transcripción","El paso ADN → ARN se llama…",["Transcripción","Traducción","Replicación","Mutación"],"ADN → ARN = transcripción.","H3·4"],
+["Transcripción","El paso ARN → proteína se llama…",["Traducción","Transcripción","Replicación","Ligación"],"ARN → proteína = traducción.","H3·4"],
+["Transcripción","¿Dónde ocurre la transcripción?",["En el núcleo","En el ribosoma","En la membrana","En el ARNt"],"«Ocurre en el núcleo».","H3·6"],
+["Transcripción","¿Qué enzima arma el ARN?",["ARN polimerasa","ADN polimerasa","Ligasa","Exonucleasa"],"«…para que la ARNpol lea y arme la hebra complementaria».","H3·7"],
+["Transcripción","¿Qué molécula se forma en la transcripción?",["ARNm","Una proteína","Un ADN nuevo","Un aminoácido"],"ARNm complementario a la hebra molde.","H3·8"],
+["Transcripción","El ARNm es complementario a…",["La hebra molde del ADN","El ARNt","El ribosoma","La proteína"],"«Complementaria a la hebra molde».","H3·8"],
+["Transcripción","¿Por qué el ARNm se modifica antes de salir del núcleo?",["Para que las enzimas del citoplasma no lo ataquen","Para poder replicarse","Para tener timina","Para tener doble cadena"],"Forma de control celular.","H3·10"],
+["Transcripción","¿En qué extremo del ARNm va el CAP?",["5'","3'","En el medio","En el anticodón"],"CAP {5' … 3'} cola de poli-A.","H3·11"],
+["Transcripción","¿En qué extremo va la cola de poli-A?",["3'","5'","En el medio","No lleva"],"La cola de poli-A va en el 3'.","H3·11"],
+["Transcripción","Hebra molde 3'-TAC-5'. ¿Qué ARNm sale?",["5'-AUG-3'","5'-ATG-3'","5'-UAC-3'","5'-TAC-3'"],"T→A, A→U, C→G. En ARN va U.","H3·8 · H2·12"],
+["Transcripción","Hebra molde 3'-AAT-5'. ¿Qué ARNm sale?",["5'-UUA-3'","5'-TTA-3'","5'-AAU-3'","5'-UUT-3'"],"A→U, A→U, T→A.","H3·8 · H2·12"],
+["Transcripción","Según el apunte, ¿qué abre las hebras para que lea la ARNpol?",["La helicasa","La ligasa","Las SSB","El ARNt"],"Así lo dice el apunte. ⚠ Dato extra: en muchos libros lo hace la propia ARN polimerasa.","H3·7"],
+["Traducción","¿Dónde ocurre la traducción?",["En el ribosoma","En el núcleo","En la horquilla de replicación","En el CAP"],"«Ocurre en el ribosoma…»","H3·14"],
+["Traducción","¿Cuántas bases lee el ribosoma por vez?",["3","1","2","4"],"Tripletes.","H3·17"],
+["Traducción","¿Qué es un codón?",["Un grupo de 3 bases del ARNm","3 bases del ARNt","Un aminoácido","Una enzima"],"Cada grupo de 3 bases del ARNm es un codón.","H3·17"],
+["Traducción","¿Dónde está el anticodón?",["En el ARNt","En el ARNm","En el ADN","En el ARNr"],"Cada ARNt tiene un anticodón.","H3·20"],
+["Traducción","Codón AUG. ¿Cuál es el anticodón?",["UAC","TAC","AUG","GUA"],"Es el ejemplo del apunte.","H3·22"],
+["Traducción","Codón GGC. ¿Cuál es el anticodón?",["CCG","CCC","GGC","CGG"],"G-C y C-G, base por base.","H3·21"],
+["Traducción","Codón UUU. ¿Cuál es el anticodón?",["AAA","TTT","UUU","GGG"],"U con A; en el ARNt no hay T.","H3·21 · H2·12"],
+["Traducción","Un ARNt tiene el anticodón AAG. ¿Qué codón lee?",["UUC","TTC","AAG","CCU"],"A-U, A-U, G-C.","H3·21"],
+["Traducción","¿Qué lleva cada ARNt?",["Un aminoácido","Una proteína entera","Un ribosoma","Una hebra de ADN"],"Cada ARNt lleva un aminoácido.","H3·20"],
+["Traducción","¿Quién une los aminoácidos?",["El ribosoma","El ARNt","La ligasa","La helicasa"],"Forma la cadena polipeptídica.","H4·16"],
+["Traducción","¿Qué es el ARNr según la hoja 4?",["Parte de la «máquina» que lee el ARNm y une los aa","El mensajero","El que transporta aa","Una enzima de la replicación"],"3- ARNr → estructura del ribosoma.","H4·1-2"],
+["Traducción","¿De dónde viene el ARNm que llega al ribosoma?",["Del núcleo","Del ribosoma","Del ARNt","De la proteína"],"Se forma en el núcleo a partir del ADN.","H3·16"],
+["Código genético","¿Para qué hace falta el código genético?",["Para pasar del «idioma» de los nucleótidos al de los aminoácidos","Para copiar el ADN","Para separar las hebras","Para corregir errores"],"Cambiar el «idioma».","H4·4"],
+["Código genético","¿Cuántos aminoácidos distintos hay?",["20","64","61","4"],"Existen 20 aa diferentes.","H4·7"],
+["Código genético","¿Cuántas bases distintas tiene el ARN?",["4","3","20","64"],"El ARN tiene solo 4 bases.","H4·7"],
+["Código genético","Con 2 bases por aminoácido, ¿cuántas combinaciones hay?",["16","4","64","20"],"4 × 4 = 16: no alcanza.","H4·9"],
+["Código genético","Con 3 bases por aminoácido, ¿cuántas combinaciones hay?",["64","16","20","61"],"4 × 4 × 4 = 64.","H4·10"],
+["Código genético","¿Por qué los codones son tripletes?",["Es lo mínimo que alcanza para 20 aminoácidos","Porque el ribosoma tiene 3 partes","Porque hay 3 tipos de ARN","Porque hay 3 codones stop"],"Con 1 base salen 4 y con 2, 16.","H4·7-10"],
+["Código genético","¿Cuántos codones corresponden a aminoácidos?",["61","64","3","20"],"61 codones → aa.","H4·12"],
+["Código genético","¿Cuántos codones indican que termina la traducción?",["3","1","61","4"],"3 codones de stop.","H4·13"],
+["Código genético","¿Qué codón de stop aparece en el apunte?",["UAA","AUG","UUU","GGC"],"UAA → stop.","H4·14"],
+["Código genético","¿Qué es un péptido?",["Una cadena de aa unidos por enlaces peptídicos","Una cadena de nucleótidos","Un codón","Un tipo de ARN"],"Definición del apunte.","H4·15"],
+["Código genético","ARNm: AUG UUU GGC UAA. ¿Cuántos aminoácidos tiene la cadena?",["3","4","12","1"],"Tres codones dan aa; UAA es stop.","H4·13-14"],
+["Mutación","¿Qué es una mutación?",["Un cambio en la secuencia de nucleótidos","Un cambio de aminoácido en el ribosoma","Un error del ARNt","Que se rompa el núcleo"],"Definición de mutación.","H4·17"],
+["Mutación","Si la mutación es en el ADN…",["La receta está mal","Leí mal la receta","No cambia nada","Se arregla sola"],"Ejemplo de la receta.","H4·19"],
+["Mutación","Si la mutación es en el ARN…",["Leí mal la receta","La receta está mal","Cambia el ADN","Se hereda siempre"],"Ejemplo de la receta.","H4·20"],
+["Mutación","¿Qué mutación cambia la información genética?",["La del ADN","La del ARN","Ninguna","Las dos por igual"],"Si ocurre en el ADN, cambia la información genética.","H4·21"]
+];
+
+// ======================= EJERCICIOS (r = tiene que estar, f = no tiene que estar) =======================
+const EJ=[
+{n:"facil",c:"Escribí la hebra complementaria (ADN) de 5'-ATGC-3'.",r:["tacg"],f:["uacg"],p:"A va con T y G con C. En el ADN no hay U.",s:"3'-TACG-5'",e:"Base por base: A→T, T→A, G→C, C→G. Los extremos quedan al revés (polaridad).",src:"H1·9-11"},
+{n:"facil",c:"¿Cuántos puentes de hidrógeno hay entre G y C? ¿Y entre A y T?",r:["(\\b3\\b|tres)","(\\b2\\b|dos)"],f:[],p:"El par con más puentes es G-C.",s:"G-C: 3 puentes · A-T: 2 puentes.",e:"Está abajo del apareamiento de bases.",src:"H1·12-13"},
+{n:"facil",c:"Nombrá las 3 partes de un nucleótido.",r:["fosfat","(azucar|pentosa|ribosa)","base"],f:[],p:"Mirá el primer dibujo de la hoja 1.",s:"Grupo fosfato, azúcar y base nitrogenada.",e:"El nucleótido es el monómero del ADN.",src:"H1·1-2"},
+{n:"facil",c:"Nombrá los 3 tipos de ARN y qué hace cada uno.",r:["(mensajero|arnm)","(transferencia|arnt)","(ribosomal|arnr)"],f:[],p:"m, t y r.",s:"ARNm (mensajero): lleva la info para fabricar una proteína. ARNt (transferencia): lleva aminoácidos. ARNr (ribosomal): forma parte de los ribosomas.",e:"La forma de cada uno tiene que ver con su función.",src:"H2·15-19"},
+{n:"facil",c:"Decí 4 diferencias entre ADN y ARN.",r:["desoxirribosa","(uracilo|\\bu\\b)","(doble|dos cadenas)","nucleo"],f:[],p:"Azúcar, bases, cadenas y si sale o no del núcleo.",s:"ADN: desoxirribosa, bases A-T-C-G, doble cadena, no sale del núcleo. ARN: ribosa, bases A-U-C-G, una cadena, sale del núcleo.",e:"Es la tabla de la hoja 2.",src:"H2·10-14"},
+{n:"facil",c:"Escribí el esquema del dogma central y el nombre de cada paso.",r:["adn.*arn.*proteina","transcripcion","traduccion"],f:[],p:"Tres moléculas, dos flechas.",s:"ADN → ARN → proteína. ADN → ARN = transcripción; ARN → proteína = traducción.",e:"Explica cómo se usa la información genética.",src:"H3·1-4"},
+{n:"medio",c:"Transcribí al ARNm esta hebra molde de ADN: 3'-TACGGA-5'.",r:["augccu"],f:["atgcct"],p:"Igual que con ADN, pero donde iría T ponés U.",s:"5'-AUGCCU-3'",e:"T→A, A→U, C→G, G→C, G→C, A→U.",src:"H3·8 · H2·12"},
+{n:"medio",c:"Escribí el anticodón de cada codón: AUG, GGC y UUU.",r:["uac","ccg","aaa"],f:["tac"],p:"El ARNt es ARN: usa U, nunca T.",s:"AUG → UAC · GGC → CCG · UUU → AAA",e:"El anticodón se une de manera complementaria con el codón.",src:"H3·20-22"},
+{n:"medio",c:"Explicá por qué la replicación es semiconservativa.",r:["(vieja|original|molde)","nueva"],f:[],p:"Pensá qué tiene cada molécula al final.",s:"Porque cada una de las dos moléculas obtenidas tiene 1 hebra vieja (la que sirvió de molde) y 1 hebra nueva.",e:"«Semi» = la mitad se conserva.",src:"H1·25"},
+{n:"medio",c:"Ordená: ligasa, ADN polimerasa, helicasa, exonucleasa y proteínas SSB.",r:["helicasa.*ssb.*(polimerasa|adn ?pol).*exonucleasa.*ligasa"],f:[],p:"Primero hay que abrir, después sostener, copiar, corregir y unir.",s:"Helicasa → SSB → ADN polimerasa → exonucleasa → ligasa.",e:"Son las fases 1, 2 y 3, y después la hoja 2.",src:"H1·15-19 · H2·1-2"},
+{n:"medio",c:"¿Cuántos aminoácidos tiene la cadena que sale del ARNm AUG-UUU-GGC-UAA? Justificá.",r:["(\\b3\\b|tres)","(stop|termina|uaa)"],f:[],p:"¿Todos los codones dan aminoácido?",s:"3 aminoácidos: AUG, UUU y GGC dan aa; UAA es stop.",e:"El stop indica que la traducción termina.",src:"H4·13-14"},
+{n:"medio",c:"¿Por qué los codones son tripletes y no pares?",r:["(\\b20\\b|veinte)","(\\b16\\b|dieciseis)","(\\b64\\b|sesenta y cuatro)"],f:[],p:"Compará cuántos aminoácidos hay con cuántas combinaciones salen.",s:"Hay 20 aminoácidos y 4 bases. Con 2 bases salen 16 combinaciones (no alcanza); con 3 salen 64 (alcanza).",e:"Es la cuenta de la hoja 4.",src:"H4·7-10"},
+{n:"dificil",c:"Hebra molde 3'-TACAAACCGATT-5': escribí el ARNm, separalo en codones y escribí los anticodones de los que llevan aminoácido.",r:["auguuuggcuaa","uac","aaa","ccg"],f:[],p:"Transcribí (U en vez de T), cortá de a 3; el último es stop.",s:"ARNm 5'-AUG UUU GGC UAA-3' · anticodones: UAC, AAA, CCG (UAA es stop y no trae aminoácido).",e:"Son los mismos codones del ejemplo de la hoja 4.",src:"H3·8-22 · H4·14"},
+{n:"dificil",c:"Explicá la diferencia entre la hebra nueva continua y la rezagada.",r:["(lider|continua)","rezagada","(okazaki|okasaki|fragmento)"],f:[],p:"¿Hacia dónde se abre la hélice y hacia dónde trabaja la ADNpol?",s:"Con la molde líder, la ADNpol copia de corrido (hebra nueva continua). Con la molde rezagada trabaja en sentido opuesto a la apertura de la hélice, por eso la copia en fragmentos de Okazaki.",e:"Líneas 23 a 27 de la hoja 1.",src:"H1·23-27"},
+{n:"dificil",c:"Con el ejemplo de la receta, explicá la diferencia entre una mutación en el ADN y una en el ARN.",r:["adn","arn","receta","(lei mal|leer mal|mal leida|lectura|leyo mal|leyendo mal)"],f:[],p:"¿Qué está mal: la receta o la lectura?",s:"En el ADN, lo que está mal es la receta (cambia la información genética). En el ARN, la receta está bien pero se leyó mal.",e:"Final de la hoja 4.",src:"H4·17-21"},
+{n:"dificil",c:"¿Por qué el ARNm se modifica antes de salir del núcleo y qué le agregan?",r:["(enzima|atac)","cap","(poli|cola)"],f:[],p:"«Forma de control celular».",s:"Para que las enzimas del citoplasma no lo ataquen. Le agregan el CAP en el extremo 5' y la cola de poli-A en el 3'.",e:"Hoja 3, transcripción.",src:"H3·9-11"},
+{n:"dificil",c:"Con el molde del esquema 3'-AATTTCGCG-5', escribí la hebra nueva de ADN y el ARNm que saldría si se transcribiera.",r:["ttaaagcgc","uuaaagcgc"],f:[],p:"En el ADN usás T; en el ARN, U.",s:"ADN nuevo: 5'-TTAAAGCGC-3' · ARNm: 5'-UUAAAGCGC-3'.",e:"La única diferencia es T por U.",src:"H2·5 · H3·8"},
+{n:"error",c:"Corregí (escribí solo la versión correcta): «La ligasa une los puentes de hidrógeno de la hebra nueva y la hebra vieja».",r:["(okazaki|okasaki|fragmento)"],f:[],p:"Pensá qué queda «cortado» en la hebra rezagada.",s:"La ligasa une los fragmentos de Okazaki de la hebra nueva.",e:"⚠ Fuera del material: los puentes de hidrógeno se forman solos al aparearse las bases; la ligasa sella los fragmentos (enlaces fosfodiéster).",src:"H2·2"},
+{n:"error",c:"Corregí (escribí solo la versión correcta): «La ADNpol lee de 5' a 3' y escribe de 3' a 5'».",r:["lee\\D{0,25}3\\D{0,4}5","(escribe|construye|arma|fabrica)\\D{0,25}5\\D{0,4}3"],f:["lee\\D{0,25}5\\D{0,4}3\\D"],p:"Mirá la línea 22 de la hoja 1.",s:"La ADNpol lee el molde de 3' a 5' y construye la hebra nueva de 5' a 3'.",e:"El apunte se contradice: las líneas 20 y 27 lo dicen al revés; la 22 lo dice bien.",src:"H1·20 · H1·22"},
+{n:"error",c:"Corregí (escribí solo la versión correcta): «El ARN tiene timina y doble cadena».",r:["(uracilo|\\bu\\b)","(una|simple)"],f:[],p:"Revisá la tabla de diferencias.",s:"El ARN tiene uracilo (U) en vez de timina y una sola cadena.",e:"Tabla ADN/ARN.",src:"H2·12-13"},
+{n:"error",c:"Corregí: «Si el codón es AUG, el anticodón es TAC».",r:["uac"],f:["anticodon es tac"],p:"¿El ARNt es ADN o ARN?",s:"El anticodón es UAC: el ARNt es ARN y usa U, no T.",e:"Es el ejemplo de la hoja 3.",src:"H3·22"},
+{n:"error",c:"Corregí: «Con 2 bases por aminoácido alcanzaría, porque hay 16 aminoácidos».",r:["(\\b20\\b|veinte)","(\\b3\\b|tres|\\b64\\b)"],f:[],p:"¿Cuántos aminoácidos hay de verdad?",s:"Hay 20 aminoácidos. Con 2 bases salen 16 combinaciones (no alcanza); hacen falta 3 bases (64).",e:"Hoja 4.",src:"H4·7-10"},
+{n:"error",c:"Corregí: «La transcripción ocurre en el ribosoma y la traducción en el núcleo».",r:["transcripcion[^.]{0,40}nucleo","traduccion[^.]{0,40}ribosoma"],f:[],p:"Están intercambiados.",s:"La transcripción ocurre en el núcleo y la traducción en el ribosoma.",e:"Hoja 3.",src:"H3·6 · H3·14"},
+{n:"desafio",c:"Contá todo el camino de un gen hasta la proteína: dónde pasa cada cosa y quién participa.",r:["nucleo","(arn ?pol|polimerasa)","(arnm|mensajero)","(cap|poli)","ribosoma","\\bcodon","anticodon","(arnt|transferencia)","peptid"],f:[],p:"Seguí el dogma central: transcripción → modificaciones → traducción.",s:"En el núcleo, la ARN polimerasa lee la hebra molde y arma el ARNm (transcripción). El ARNm recibe el CAP y la cola de poli-A y sale del núcleo. En el ribosoma (ARNr) se lee de a 3 bases (codones); cada ARNt, con su anticodón complementario, trae un aminoácido. El ribosoma los une con enlaces peptídicos hasta un codón stop: queda el polipéptido (traducción).",e:"Junta las hojas 3 y 4.",src:"H3·1-22 · H4·1-16"},
+{n:"desafio",c:"Un fragmento de ADN tiene 10 pares G-C y 5 pares A-T. ¿Cuántos puentes de hidrógeno tiene en total?",r:["(\\b40\\b|cuarenta)"],f:[],p:"G-C tiene 3 y A-T tiene 2.",s:"10 × 3 + 5 × 2 = 30 + 10 = 40 puentes de hidrógeno.",e:"Se aplica la regla de la hoja 1.",src:"H1·12-13"},
+{n:"desafio",c:"Si el ARN tuviera solo 2 bases distintas, ¿cuántas bases por codón harían falta como mínimo para los 20 aminoácidos? Justificá.",r:["(\\b5\\b|cinco)","(\\b32\\b|treinta y dos)"],f:[],p:"Hacé la cuenta del apunte, pero multiplicando por 2.",s:"5 bases: 2⁴ = 16 no alcanza; 2⁵ = 32 sí.",e:"⚠ El razonamiento es el del apunte; el caso de 2 bases es fuera del material.",src:"H4·7-10"},
+{n:"desafio",c:"Un ARNm tiene 30 bases y el último triplete es un codón stop. ¿Cuántos codones tiene y cuántos aminoácidos?",r:["(\\b10\\b|diez)","(\\b9\\b|nueve)"],f:[],p:"Dividí por 3 y acordate del stop.",s:"30 ÷ 3 = 10 codones; el último es stop, así que 9 aminoácidos.",e:"Tripletes + codón stop.",src:"H3·17 · H4·13"}
+];
+EJ.forEach((e,i)=>e.id=i);
+
+// ======================= RETOS [pregunta, hoja, línea, qué buscar, pista] =======================
+const R=[
+["¿Dónde dice qué enzima desenrolla la doble hélice?","H1",15,"helicasa","Fase 1 de la replicación."],
+["¿Dónde está la definición de horquilla de replicación?","H1",16,"horquilla","Justo después de la fase 1."],
+["¿Dónde dice que la replicación es semiconservativa?","H1",25,"semiconservativo","Casi al final de la hoja 1."],
+["¿Dónde aparecen por primera vez los fragmentos de Okazaki?","H1",26,"fragmentos","Escrito «Okasaki»."],
+["¿Dónde dice cuántos puentes de hidrógeno tiene G-C?","H1",12,"tres puentes","Abajo de la polaridad."],
+["¿Dónde está la frase con el error «lee de 5' a 3' y escribe de 3' a 5'» (la primera vez)?","H1",20,"Lee de 5'","Fase 3, ADN polimerasa."],
+["¿Dónde dice qué hacen las proteínas SSB?","H1",17,"SSB","Fase 2."],
+["¿Dónde se define el nucleótido?","H1",1,"monómero","Primera línea."],
+["¿Dónde está el error de la ligasa?","H2",2,"LIGASA","Arriba de todo de la hoja 2."],
+["¿Dónde dice qué hace la exonucleasa?","H2",1,"EXONUCLEASA","Primera línea de la hoja 2."],
+["¿Dónde dice qué azúcar tiene cada ácido nucleico?","H2",11,"ribosa","Tabla de diferencias."],
+["¿Dónde dice qué bases tiene el ARN?","H2",12,"A, U","Tabla de diferencias."],
+["¿Dónde está el ARN de transferencia?","H2",17,"transferencia","Tipos de ARN."],
+["¿Dónde dice que la forma del ARN se relaciona con su función?","H2",19,"función","Última línea de la hoja 2."],
+["¿Dónde dice en qué lugar ocurre la transcripción?","H3",6,"núcleo","Primera viñeta de transcripción."],
+["¿Dónde aparecen el CAP y la cola de poli-A?","H3",11,"Poli-A","Después de «forma de control celular»."],
+["¿Dónde dice por qué se modifica el ARNm?","H3",10,"ataquen","Antes del dibujo del CAP."],
+["¿Dónde se define el codón?","H3",17,"CODÓN","Parte del ARNm en la traducción."],
+["¿Dónde se define el anticodón?","H3",20,"ANTICODÓN","Parte del ARNt."],
+["¿Dónde está el ejemplo AUG / UAC?","H3",22,"UAC","Última línea de la hoja 3."],
+["¿Dónde dice en qué lugar ocurre la traducción?","H3",14,"retículo","Después del título TRADUCCIÓN."],
+["¿Dónde se define el dogma central?","H3",1,"DOGMA","Primera línea de la hoja 3."],
+["¿Dónde dice cuántos aminoácidos distintos hay?","H4",7,"20 aa","¿Por qué los codones son tripletes?"],
+["¿Dónde dice que con 2 bases no alcanza?","H4",9,"16","La cuenta de combinaciones."],
+["¿Dónde dice cuántos codones son de stop?","H4",13,"terminar","«De los 64»."],
+["¿Dónde se define péptido?","H4",15,"Péptido","Después de la lista AUG, UUU…"],
+["¿Dónde está la definición de mutación?","H4",17,"MUTACIÓN","Parte final de la hoja 4."],
+["¿Dónde dice qué pasa si la mutación es en el ARN?","H4",20,"leí mal","Ejemplo de la receta."]
+];
+
+// ======================= HERRAMIENTAS =======================
+const CLAVE="bio-adn-arn-v1";
+let st={sabe:[],mejor:null,hechos:[],resueltas:[],retos:{ok:0,t:[]},tab:"t1"};
+try{const g=JSON.parse(localStorage.getItem(CLAVE));if(g)st=Object.assign(st,g)}catch(e){}
+function guardar(){try{localStorage.setItem(CLAVE,JSON.stringify(st))}catch(e){}}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const mezclar=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+const fuente=s=>s?`<a href="#" class="src" data-src="${esc(s)}">📓 ${esc(s.replace(/H(\d)/g,"Hoja $1").replace(/·(\d)/g," · línea $1"))}</a>`:"";
+const plegar=s=>s.split("").map(c=>c.normalize("NFD").charAt(0).toLowerCase()).join("");
+function filtros(id,ops,fn,ini){const c=$(id);c.innerHTML="";ops.forEach(([v,t])=>{const b=document.createElement("button");b.textContent=t;if(v===ini)b.classList.add("on");b.onclick=()=>{c.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");fn(v)};c.appendChild(b)})}
+const tabs=document.querySelectorAll("#tabs button");
+function irTab(id){tabs.forEach(b=>b.classList.toggle("on",b.dataset.tab===id));document.querySelectorAll("section.tab").forEach(s=>s.classList.toggle("on",s.id===id));st.tab=id;guardar();if(id==="t5")visor.pintar()}
+tabs.forEach(b=>b.onclick=()=>irTab(b.dataset.tab));
+
+// ======================= 1 · MAPA =======================
+(function(){
+$("unidades").innerHTML=M.unidades.map(([t,d,s])=>`<div class="uni"><h3>${esc(t)}</h3><p>${esc(d)}</p>${fuente(s)}</div>`).join("");
+$("relacion").textContent=M.relacion;
+const sel=$("proceso");M.procesos.forEach((p,i)=>sel.add(new Option(p.n,i)));
+const pintar=()=>{$("pasos").innerHTML=M.procesos[sel.value].pasos.map(([t,s])=>`<li><div>${esc(t)}<div class="donde">${fuente(s)}</div></div></li>`).join("")};
+sel.onchange=pintar;pintar();
+$("debiles").innerHTML="<tr><th>Pregunta o punto confuso</th><th>Cómo responder</th></tr>"+M.debiles.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("");
+$("comp").innerHTML=M.comp.map(([t,d,s])=>`<div class="uni"><h3>${esc(t)}</h3><p>${esc(d)}</p>${fuente(s)}</div>`).join("");
+})();
+
+// ======================= 2 · TARJETAS =======================
+(function(){
+const temas=["Todas",...new Set(T.map(t=>t[0]))];let tema="Todas",lista=[],pos=0,soloNo=false;
+const delTema=(t)=>tema==="Todas"||t[0]===tema;
+function armar(mz){lista=T.map((t,i)=>({t,i})).filter(o=>delTema(o.t)&&(!soloNo||!st.sabe.includes(o.i)));if(mz)lista=mezclar(lista);pos=0;mostrar()}
+function mostrar(){
+const tot=T.filter(delTema).length,sabe=T.filter((t,i)=>delTema(t)&&st.sabe.includes(i)).length;
+$("tarSabe").textContent=sabe;$("tarTotal").textContent=tot;$("tarBarra").style.width=(tot?sabe/tot*100:0)+"%";$("flip").classList.remove("vuelta");
+if(!lista.length){$("cara1").innerHTML="<div class='preg'>No quedan tarjetas acá. Sacá «solo las que no sé» o elegí otro tema.</div>";$("cara2").innerHTML="";$("tarPos").textContent="";return}
+const {t,i}=lista[pos];$("tarPos").textContent=`tarjeta ${pos+1} de ${lista.length}`;
+$("cara1").innerHTML=`<div class="tema">${esc(t[0])}${st.sabe.includes(i)?" · <span class='hecho'>✓ la sabés</span>":""}</div><div class="preg">${esc(t[1])}</div><div class="toca">tocá para dar vuelta ↻</div>`;
+$("cara2").innerHTML=`<div class="tema">Respuesta</div><div class="resp">${esc(t[2])}</div><div class="donde">${fuente(t[3])}</div>`}
+filtros("filtroTar",temas.map(t=>[t,t]),v=>{tema=v;armar(false)},"Todas");
+$("flip").onclick=e=>{if(e.target.closest(".src"))return;$("flip").classList.toggle("vuelta")};
+$("flip").onkeydown=e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();$("flip").classList.toggle("vuelta")}};
+const av=d=>{if(!lista.length)return;pos=(pos+d+lista.length)%lista.length;mostrar()};
+$("tarAnt").onclick=()=>av(-1);$("tarSig").onclick=()=>av(1);
+$("tarSe").onclick=()=>{const o=lista[pos];if(!o)return;if(!st.sabe.includes(o.i))st.sabe.push(o.i);guardar();if(soloNo){lista.splice(pos,1);if(pos>=lista.length)pos=0;mostrar()}else av(1)};
+$("tarRep").onclick=()=>{const o=lista[pos];if(!o)return;st.sabe=st.sabe.filter(x=>x!==o.i);guardar();av(1)};
+$("tarMezclar").onclick=()=>armar(true);
+$("tarReset").onclick=()=>{if(confirm("¿Borrar las tarjetas marcadas como sabidas?")){st.sabe=[];guardar();armar(false)}};
+$("tarSoloNo").onchange=e=>{soloNo=e.target.checked;armar(false)};
+armar(false);
+})();
+
+// ======================= 3 · CUESTIONARIO =======================
+(function(){
+const temas=["Todos",...new Set(Q.map(q=>q[0]))];let tema="Todos",ps=[],i=0,bien=0,mal=[];
+filtros("filtroQuiz",temas.map(t=>[t,t]),v=>tema=v,"Todos");
+const mejor=()=>{$("quizMejor").textContent=st.mejor?"Tu mejor nota: "+st.mejor.txt:""};mejor();
+$("quizEmpezar").onclick=()=>{ps=mezclar(Q.filter(q=>tema==="Todos"||q[0]===tema));i=0;bien=0;mal=[];preg()};
+function preg(){const z=$("quizZona");
+if(i>=ps.length){const nota=Math.round(bien/ps.length*100),txt=`${bien}/${ps.length} (${nota}%)`;if(!st.mejor||nota>st.mejor.n){st.mejor={n:nota,txt};guardar();mejor()}
+z.innerHTML=`<h3>Terminaste: ${txt}</h3>`+(mal.length?"<p><b>Para repasar:</b></p><ol>"+mal.map(q=>`<li>${esc(q[1])}<br><span class="hecho">✓ ${esc(q[2][0])}</span> — ${esc(q[3])} ${fuente(q[4])}</li>`).join("")+"</ol>":"<p>¡No fallaste ninguna!</p>");return}
+const q=ps[i],orden=mezclar([0,1,2,3]);let resp=false;
+z.innerHTML=`<p class="sub">Pregunta ${i+1} de ${ps.length} · ${esc(q[0])} · bien: ${bien}</p><div class="reto-q">${esc(q[1])}</div>`+orden.map(k=>`<button class="opcion" data-k="${k}">${esc(q[2][k])}</button>`).join("")+'<div id="quizExp"></div>';
+z.querySelectorAll(".opcion").forEach(b=>b.onclick=()=>{if(resp)return;resp=true;const k=+b.dataset.k;z.querySelector('.opcion[data-k="0"]').classList.add("bien");if(k===0)bien++;else{b.classList.add("malo");mal.push(q)}
+$("quizExp").innerHTML=`<div class="explica"><b>${k===0?"¡Bien!":"No."}</b> ${esc(q[3])} ${fuente(q[4])}</div><div style="margin-top:10px"><button class="btn prim" id="quizSig">${i+1<ps.length?"Siguiente":"Ver nota"}</button></div>`;
+$("quizSig").onclick=()=>{i++;preg()}})}
+})();
+
+// ======================= 4 · SIMULACRO =======================
+const NIV=[["todos","Todos"],["facil","Fácil"],["medio","Medio"],["dificil","Difícil"],["error","Encontrá el error"],["desafio","Desafío"]];
+const NN=Object.fromEntries(NIV);
+const norm=t=>t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const junto=t=>norm(t).replace(/[\s'’´`\-–—.,;:]/g,"");
+function pasa(ej,txt){const a=norm(txt),b=junto(txt);const hay=p=>{const re=new RegExp(p);return re.test(a)||re.test(b)};return{ok:ej.r.every(hay)&&!ej.f.some(hay),sobra:ej.f.some(hay)}}
+(function(){
+let niv="todos",act=null,intentos=0,seg=0,tic=null;
+$("simCuenta").textContent=st.resueltas.length;
+filtros("filtroSim",NIV,v=>{niv=v;otra()},"todos");
+function otra(){const pool=EJ.filter(e=>niv==="todos"||e.n===niv);const sin=pool.filter(e=>!st.resueltas.includes(e.id)&&e!==act);const el=sin.length?sin:pool.filter(e=>e!==act);act=el[Math.floor(Math.random()*el.length)]||pool[0];
+intentos=0;seg=0;clearInterval(tic);tic=setInterval(()=>{seg++;$("simReloj").textContent=mmss(seg)},1000);$("simReloj").textContent="00:00";
+$("simConsigna").innerHTML=`<span class="nivel">${NN[act.n]}</span> ${esc(act.c)}`;$("simDonde").innerHTML="En el apunte: "+fuente(act.src);
+$("simEditor").value="";$("simPista").disabled=true;$("simPista").textContent="Pista (después de 2 intentos)";$("simRes").innerHTML=""}
+$("simRevisar").onclick=()=>{if(!act)return;const r=pasa(act,$("simEditor").value);
+if(r.ok){clearInterval(tic);if(!st.resueltas.includes(act.id))st.resueltas.push(act.id);guardar();$("simCuenta").textContent=st.resueltas.length;
+$("simRes").innerHTML=`<div class="res bien"><b>¡Bien! Lo resolviste en ${mmss(seg)}.</b> Respuesta modelo: ${esc(act.s)}<br>${esc(act.e)}</div>`}
+else{intentos++;if(intentos>=2){$("simPista").disabled=false;$("simPista").textContent="Ver pista"}
+$("simRes").innerHTML=`<div class="res malo"><b>Todavía no (intento ${intentos}).</b> ${r.sobra?"Quedó algo del error o una base mal puesta (¿T en el ARN?).":"Falta algo de lo que pide la consigna."} Revisá las bases y los conceptos clave.</div>`}};
+$("simPista").onclick=()=>{$("simRes").innerHTML=`<div class="res info"><b>Pista:</b> ${esc(act.p)}</div>`};
+$("simRindo").onclick=()=>{clearInterval(tic);$("simRes").innerHTML=`<div class="res info"><b>Respuesta modelo:</b> ${esc(act.s)}<br><b>Por qué:</b> ${esc(act.e)} ${fuente(act.src)}</div>`};
+$("simBorrar").onclick=()=>{$("simEditor").value=""};
+$("simOtra").onclick=otra;
+otra();
+let nivL="todos";$("ejTotal").textContent=EJ.length;
+function lista(){$("ejHechos").textContent=st.hechos.length;
+$("listaEj").innerHTML=EJ.filter(e=>nivL==="todos"||e.n===nivL).map((e,k)=>`<details class="ej" data-id="${e.id}"><summary><span class="nivel">${NN[e.n]}</span><span>${k+1}. ${esc(e.c)}</span>${st.hechos.includes(e.id)?'<span class="hecho">✓</span>':""}</summary>
+<div class="cuerpo"><div class="fila"><button class="btn chico vP">Ver pista</button><button class="btn chico vS">Ver solución</button><label><input type="checkbox" class="prac" ${st.hechos.includes(e.id)?"checked":""}> Ya lo practiqué</label></div>
+<div class="pP" hidden><div class="res info"><b>Pista:</b> ${esc(e.p)}</div></div>
+<div class="pS" hidden><div class="res info"><b>Solución:</b> ${esc(e.s)}<br><b>Por qué:</b> ${esc(e.e)}<br>${fuente(e.src)}</div></div></div></details>`).join("");
+$("listaEj").querySelectorAll(".ej").forEach(d=>{const id=+d.dataset.id;
+d.querySelector(".vP").onclick=()=>{const x=d.querySelector(".pP");x.hidden=!x.hidden};
+d.querySelector(".vS").onclick=()=>{const x=d.querySelector(".pS");x.hidden=!x.hidden};
+d.querySelector(".prac").onchange=ev=>{st.hechos=st.hechos.filter(x=>x!==id);if(ev.target.checked)st.hechos.push(id);guardar();$("ejHechos").textContent=st.hechos.length;const s=d.querySelector("summary"),h=s.querySelector(".hecho");if(ev.target.checked&&!h)s.insertAdjacentHTML("beforeend",'<span class="hecho">✓</span>');if(!ev.target.checked&&h)h.remove()}})}
+filtros("filtroEj",NIV,v=>{nivL=v;lista()},"todos");lista();
+})();
+
+// ======================= 5 · VISOR =======================
+const visor=(function(){
+const sel=$("vArch"),caja=$("visor");let arch="H1",marcas=[],am=-1;
+Object.keys(H).forEach(k=>sel.add(new Option(H[k].t+" ("+H[k].l.length+" líneas)",k)));
+function render(){const q=plegar($("vBuscar").value);marcas=[];
+caja.innerHTML=H[arch].l.map((l,i)=>{let h="";if(q){const low=plegar(l);let d=0,k;while((k=low.indexOf(q,d))>=0){h+=esc(l.slice(d,k))+`<mark data-m="${marcas.length}">`+esc(l.slice(k,k+q.length))+"</mark>";marcas.push(i+1);d=k+q.length}h+=esc(l.slice(d))}else h=esc(l);
+return `<div class="vl" data-l="${i+1}"><span class="n">${i+1}</span><span class="c">${h}</span></div>`}).join("");am=marcas.length?0:-1;marcar()}
+function centrar(el){if(el)caja.scrollTop=el.offsetTop-caja.clientHeight/2+10}
+function marcar(){caja.querySelectorAll("mark.actual").forEach(m=>m.classList.remove("actual"));$("vCuenta").textContent=$("vBuscar").value?(marcas.length?`${am+1} de ${marcas.length}`:"0 de 0"):"";if(am<0)return;const m=caja.querySelector(`mark[data-m="${am}"]`);if(m){m.classList.add("actual");centrar(m.closest(".vl"))}}
+function mover(d){if(!marcas.length)return;am=(am+d+marcas.length)%marcas.length;marcar()}
+function ir(a,n,clase){if(a!==arch||!caja.innerHTML){arch=a;sel.value=a;$("vBuscar").value="";render()}const el=caja.querySelector(`.vl[data-l="${n}"]`);if(!el)return;caja.querySelectorAll(".foco").forEach(x=>x.classList.remove("foco"));el.classList.add(clase||"foco");centrar(el)}
+sel.onchange=()=>{arch=sel.value;render();caja.scrollTop=0};
+$("vBuscar").oninput=render;
+$("vBuscar").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();mover(e.shiftKey?-1:1)}};
+$("vSig").onclick=()=>mover(1);$("vAnt").onclick=()=>mover(-1);
+const irL=()=>{const n=+$("vLinea").value;if(n)ir(arch,n)};$("vIr").onclick=irL;$("vLinea").onkeydown=e=>{if(e.key==="Enter")irL()};
+return{pintar:()=>{if(!caja.innerHTML)render()},ir,caja,get arch(){return arch}};
+})();
+
+// ======================= 5 · RETOS =======================
+(function(){
+let r=null,seg=0,tic=null,hecho=false,usados=[];
+function punt(){const t=st.retos.t,p=t.length?Math.round(t.reduce((a,b)=>a+b,0)/t.length):0;$("retoPunt").innerHTML=`<span>Acertados: <b>${st.retos.ok}</b></span><span>Tiempo promedio: <b>${t.length?mmss(p):"—"}</b></span><span>Retos: <b>${R.length}</b></span>`}
+function nuevo(){let libres=R.filter(x=>!usados.includes(x));if(!libres.length){usados=[];libres=R.slice()}r=libres[Math.floor(Math.random()*libres.length)];usados.push(r);hecho=false;seg=0;clearInterval(tic);tic=setInterval(()=>{seg++;$("retoReloj").textContent=mmss(seg)},1000);$("retoReloj").textContent="00:00";$("retoQ").textContent=r[0];$("retoMsg").innerHTML='<p class="sub">Elegí la hoja en el visor de abajo, buscá y tocá la línea.</p>';visor.caja.querySelectorAll(".acierto,.erro,.cerca").forEach(x=>x.classList.remove("acierto","erro","cerca"));punt()}
+visor.caja.addEventListener("click",e=>{const vl=e.target.closest(".vl");if(!vl||!r||hecho)return;const n=+vl.dataset.l;visor.caja.querySelectorAll(".erro,.cerca").forEach(x=>x.classList.remove("erro","cerca"));
+if(visor.arch!==r[1]){vl.classList.add("erro");$("retoMsg").innerHTML=`<div class="res malo"><b>Esa no es la hoja.</b> Pensalo así: ${esc(GUIA[r[1]])}</div>`;return}
+if(n===r[2]){hecho=true;clearInterval(tic);vl.classList.add("acierto");st.retos.ok++;st.retos.t.push(seg);guardar();punt();$("retoMsg").innerHTML=`<div class="res bien"><b>¡Bien! Línea ${n} en ${mmss(seg)}.</b> Convenía buscar «${esc(r[3])}».</div>`}
+else if(Math.abs(n-r[2])<=3){vl.classList.add("cerca");$("retoMsg").innerHTML='<div class="res info"><b>¡Cerca!</b> Estás a menos de 4 líneas. Fijate cuál dice exactamente eso.</div>'}
+else{vl.classList.add("erro");$("retoMsg").innerHTML='<div class="res malo"><b>Hoja correcta, línea no.</b> Probá con el buscador.</div>'}});
+$("retoPista").onclick=()=>{if(r)$("retoMsg").innerHTML=`<div class="res info"><b>Pista:</b> ${esc(r[4])} (${esc(H[r[1]].t)})</div>`};
+$("retoMostrar").onclick=()=>{if(!r)return;hecho=true;clearInterval(tic);visor.ir(r[1],r[2],"acierto");$("retoMsg").innerHTML=`<div class="res info">Es la ${esc(H[r[1]].t)}, línea <b>${r[2]}</b>. Convenía buscar «${esc(r[3])}».</div>`};
+$("retoOtro").onclick=nuevo;
+nuevo();
+})();
+
+// cualquier 📓 lleva a esa línea del apunte
+document.addEventListener("click",e=>{const a=e.target.closest(".src");if(!a)return;e.preventDefault();e.stopPropagation();const m=a.dataset.src.match(/H(\d)·(\d+)/);if(!m)return;irTab("t5");visor.ir("H"+m[1],+m[2])});
+try{irTab(st.tab||"t1")}catch(e){irTab("t1")}
+</script>
+</body>
+</html>
